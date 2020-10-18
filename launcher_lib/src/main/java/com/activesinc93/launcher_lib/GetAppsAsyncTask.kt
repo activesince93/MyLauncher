@@ -16,9 +16,6 @@ class GetAppsAsyncTask(
     private val context: Context,
     private val listener: AppListFetchListener,
 ) : AsyncTask<Void, Void, ArrayList<MyApp>>() {
-    override fun onPreExecute() {
-        super.onPreExecute()
-    }
 
     override fun doInBackground(vararg params: Void?): ArrayList<MyApp> {
         val appsList = ArrayList<MyApp>()
