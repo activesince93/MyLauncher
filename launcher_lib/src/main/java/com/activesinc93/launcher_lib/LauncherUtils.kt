@@ -1,5 +1,6 @@
-package com.activesinc93.myapplication
+package com.activesinc93.launcher_lib
 
+import android.app.Activity
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
@@ -41,9 +42,9 @@ object LauncherUtils {
         context.packageManager.clearPackagePreferredActivities(context.packageName)
     }
 
-    fun resetPreferredLauncherAndOpenChooser(context: Context) {
+    fun resetPreferredLauncherAndOpenChooser(context: Context, activity: Activity) {
         val packageManager = context.packageManager
-        val componentName = ComponentName(context, com.activesinc93.myapplication.MainActivity::class.java)
+        val componentName = ComponentName(context, activity.javaClass)
         packageManager.setComponentEnabledSetting(
             componentName,
             PackageManager.COMPONENT_ENABLED_STATE_ENABLED,

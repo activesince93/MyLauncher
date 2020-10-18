@@ -1,4 +1,4 @@
-package com.activesinc93.myapplication
+package com.activesinc93.launcher_lib
 
 import android.content.Context
 import android.content.pm.ApplicationInfo

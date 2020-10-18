@@ -8,10 +8,15 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.GridLayoutManager
+import com.activesinc93.launcher_lib.AppListFetchListener
+import com.activesinc93.launcher_lib.GetAppsAsyncTask
+import com.activesinc93.launcher_lib.LauncherUtils
+import com.activesinc93.launcher_lib.MyApp
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity(), AppListFetchListener, AppClickListener {
+class MainActivity : AppCompatActivity(), AppListFetchListener, AppClickListener,
+    View.OnClickListener {
 
     private lateinit var context: Context
     private var appsList = ArrayList<MyApp>()
@@ -30,20 +35,13 @@ class MainActivity : AppCompatActivity(), AppListFetchListener, AppClickListener
     }
 
     private fun initViews() {
+        btnSetDefaultLauncher.setOnClickListener(this)
         rvAppsList.layoutManager = GridLayoutManager(context, 4)
 
         if(!LauncherUtils.isMyLauncherDefault(context)) {
             btnSetDefaultLauncher.visibility = View.VISIBLE
         } else {
             btnSetDefaultLauncher.visibility = View.GONE
-        }
-
-        btnSetDefaultLauncher.setOnClickListener {
-            if(!LauncherUtils.isMyLauncherDefault(context)) {
-                LauncherUtils.resetPreferredLauncherAndOpenChooser(context)
-            } else {
-                btnSetDefaultLauncher.visibility = View.GONE
-            }
         }
 
         etAppSearch.addTextChangedListener {
@@ -86,4 +84,15 @@ class MainActivity : AppCompatActivity(), AppListFetchListener, AppClickListener
     }
 
     override fun onBackPressed() {}
+    override fun onClick(v: View?) {
+        when(v?.id) {
+            R.id.btnSetDefaultLauncher -> {
+                if(!LauncherUtils.isMyLauncherDefault(context)) {
+                    LauncherUtils.resetPreferredLauncherAndOpenChooser(context, this)
+                } else {
+                    btnSetDefaultLauncher.visibility = View.GONE
+                }
+            }
+        }
+    }
 }
