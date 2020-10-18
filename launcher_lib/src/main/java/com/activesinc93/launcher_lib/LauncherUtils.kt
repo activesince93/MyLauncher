@@ -12,9 +12,7 @@ import android.content.pm.PackageManager
 
 object LauncherUtils {
 
-    private const val DEFAULT_RESOLVER_ACTIVITY_PACKAGE = "android"
-
-    fun getDefaultLauncher(context: Context): String? {
+    private fun getDefaultLauncher(context: Context): String? {
         val packageManager = context.packageManager
         val intent = Intent("android.intent.action.MAIN")
         intent.addCategory("android.intent.category.HOME")
@@ -23,23 +21,8 @@ object LauncherUtils {
         return resolveInfo.activityInfo.packageName
     }
 
-    fun isDefaultResolverActivity(context: Context): Boolean {
-        return getDefaultLauncher(context).equals(DEFAULT_RESOLVER_ACTIVITY_PACKAGE)
-    }
-
     fun isMyLauncherDefault(context: Context): Boolean {
         return getDefaultLauncher(context).equals(context.packageName)
-    }
-
-    fun showDefaultLauncherDialog(context: Context) {
-        val startMain = Intent(Intent.ACTION_MAIN)
-        startMain.addCategory(Intent.CATEGORY_HOME)
-        startMain.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        context.startActivity(startMain)
-    }
-
-    fun clearDefaultLauncherApp(context: Context) {
-        context.packageManager.clearPackagePreferredActivities(context.packageName)
     }
 
     fun resetPreferredLauncherAndOpenChooser(context: Context, activity: Activity) {
