@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">My Launcher</string>
+    <string name="search_app_name">Search app name</string>
+    <string name="set_launcher">Set launcher</string>
+</resources>
