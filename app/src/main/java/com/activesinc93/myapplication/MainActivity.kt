@@ -8,10 +8,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.GridLayoutManager
-import com.activesinc93.launcher_lib.AppListFetchListener
-import com.activesinc93.launcher_lib.GetAppsAsyncTask
-import com.activesinc93.launcher_lib.LauncherUtils
-import com.activesinc93.launcher_lib.MyApp
+import com.activesinc93.launcher_lib.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -19,6 +16,7 @@ class MainActivity : AppCompatActivity(), AppListFetchListener, AppClickListener
     View.OnClickListener {
 
     private lateinit var context: Context
+    private lateinit var appListProvider: AppListProvider
     private var appsList = ArrayList<MyApp>()
     private var filteredAppList = ArrayList<MyApp>()
 
@@ -26,12 +24,14 @@ class MainActivity : AppCompatActivity(), AppListFetchListener, AppClickListener
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         context = this
+        appListProvider = AppListProvider.getInstance(context, this)
+
         initViews()
         getAppsList()
     }
 
     private fun getAppsList() {
-        GetAppsAsyncTask(context, this).execute()
+        appListProvider.getAppList()
     }
 
     private fun initViews() {

@@ -12,7 +12,7 @@ import kotlin.collections.ArrayList
  * Created by Darshan Parikh on 18/10/20.
  */
 
-class GetAppsAsyncTask(
+internal class GetAppsAsyncTask(
     private val context: Context,
     private val listener: AppListFetchListener,
 ) : AsyncTask<Void, Void, ArrayList<MyApp>>() {
